@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 08, 2015 at 09:33 PM
+-- Generation Time: Oct 13, 2015 at 06:27 PM
 -- Server version: 5.6.25-0ubuntu0.15.04.1
 -- PHP Version: 5.6.4-4ubuntu6.3
 
@@ -19,6 +19,19 @@ SET time_zone = "+00:00";
 --
 -- Database: `dag_parser`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `categories`
+--
+
+CREATE TABLE IF NOT EXISTS `categories` (
+`id` int(10) unsigned NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  `added_on` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -43,11 +56,11 @@ CREATE TABLE IF NOT EXISTS `cities` (
 CREATE TABLE IF NOT EXISTS `investiments` (
 `id` int(10) unsigned NOT NULL,
   `city_id` int(10) unsigned NOT NULL,
-  `category` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `domain` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `value` double(15,2) NOT NULL,
   `date` date NOT NULL,
-  `added_on` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+  `added_on` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `category_id` int(10) unsigned NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -66,6 +79,12 @@ CREATE TABLE IF NOT EXISTS `migrations` (
 --
 
 INSERT INTO `migrations` (`migration`, `batch`) VALUES
+('2014_10_12_000000_create_users_table', 1),
+('2014_10_12_100000_create_password_resets_table', 1),
+('2015_10_08_200222_create_cities_table', 1),
+('2015_10_08_221412_create_investiments_table', 2),
+('2015_10_13_204723_create_categories_table', 3),
+('2015_10_13_205340_alter_investiments_table', 3),
 ('2014_10_12_000000_create_users_table', 1),
 ('2014_10_12_100000_create_password_resets_table', 1),
 ('2015_10_08_200222_create_cities_table', 1),
@@ -104,6 +123,12 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 --
+-- Indexes for table `categories`
+--
+ALTER TABLE `categories`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `cities`
 --
 ALTER TABLE `cities`
@@ -113,7 +138,7 @@ ALTER TABLE `cities`
 -- Indexes for table `investiments`
 --
 ALTER TABLE `investiments`
- ADD PRIMARY KEY (`id`), ADD KEY `investiments_city_id_foreign` (`city_id`);
+ ADD PRIMARY KEY (`id`), ADD KEY `investiments_city_id_foreign` (`city_id`), ADD KEY `investiments_category_id_foreign` (`category_id`);
 
 --
 -- Indexes for table `password_resets`
@@ -131,6 +156,11 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for dumped tables
 --
 
+--
+-- AUTO_INCREMENT for table `categories`
+--
+ALTER TABLE `categories`
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `cities`
 --
@@ -154,6 +184,7 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 -- Constraints for table `investiments`
 --
 ALTER TABLE `investiments`
+ADD CONSTRAINT `investiments_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`),
 ADD CONSTRAINT `investiments_city_id_foreign` FOREIGN KEY (`city_id`) REFERENCES `cities` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
