@@ -18,3 +18,9 @@ Route::get('/', function () {
 Route::get('admin/sheetParser', function () {
     return view('admin.sheetParser');
 });
+
+Route::get('admin/categories', function(){
+    return view('admin.categories');
+});
+
+Route::resource('categories', 'CategoryController');
