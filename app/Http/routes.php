@@ -19,7 +19,7 @@ Route::get('admin/sheetParser', function () {
     return view('admin.sheetParser');
 });
 
-Route::get('admin/categories', function(){
+Route::get('admin/categories', 'CategoryController@listing', function(){
     return view('admin.categories');
 });
 

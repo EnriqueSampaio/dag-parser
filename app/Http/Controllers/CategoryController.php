@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -16,7 +17,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.categories');
     }
 
     /**
@@ -48,6 +49,8 @@ class CategoryController extends Controller
         $category->name = $request->name;
         $category->description = $request->description;
         $category->save();
+
+        return Redirect::route('categories.index');
     }
 
     /**
@@ -90,8 +93,16 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        echo $request;
+    }
+
+    public function listing()
+    {
+        $categories = DB::table('categories')->orderBy('name')->lists('id', 'name');
+
+        array_unshift($categories, 'Selecione uma categoria');
+        return view('admin.categories', ['categories' => $categories]);
     }
 }
