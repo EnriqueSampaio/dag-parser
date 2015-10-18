@@ -15,12 +15,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('admin/sheetParser', function () {
-    return view('admin.sheetParser');
-});
-
-Route::get('admin/categories', 'CategoryController@listing', function(){
-    return view('admin.categories');
-});
-
-Route::resource('categories', 'CategoryController');
+Route::resource('admin/categories', 'CategoryController');

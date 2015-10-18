@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use DB;
 use App\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -17,7 +17,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('admin.categories');
+        $categories = Category::all();
+
+        return view('admin.categories', ['categories' => $categories]);
     }
 
     /**
@@ -50,7 +52,7 @@ class CategoryController extends Controller
         $category->description = $request->description;
         $category->save();
 
-        return Redirect::route('categories.index');
+        return Redirect::route('admin.categories.index');
     }
 
     /**
@@ -72,7 +74,9 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::findOrFail($id);
+
+        return view('admin.updateCategory', ['category' => $category]);
     }
 
     /**
@@ -84,7 +88,20 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $category = Category::findOrFail($id);
+
+        $request->name = ucfirst(strtolower($request->name));
+        $request->description = ucfirst(strtolower($request->description));
+        $this->validate($request, [
+            'name'          => 'required|max:255',
+            'description'   => 'required|max:16383',
+        ]);
+
+        $category->name = $request->name;
+        $category->description = $request->description;
+        $category->save();
+
+        return Redirect::route('admin.categories.index');
     }
 
     /**
@@ -93,16 +110,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        echo $request;
-    }
+        Category::destroy($id);
 
-    public function listing()
-    {
-        $categories = DB::table('categories')->orderBy('name')->lists('id', 'name');
-
-        array_unshift($categories, 'Selecione uma categoria');
-        return view('admin.categories', ['categories' => $categories]);
+        return Redirect::route('admin.categories.index');
     }
 }
