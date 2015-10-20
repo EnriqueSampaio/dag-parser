@@ -15,7 +15,7 @@
     </div>
     <div class="row">
         <div class="col-xs-12">
-            {!! Form::open(['method' => 'PATCH', 'route' => array('admin.categories.update', $category->id), 'class' => 'form-horizontal']) !!}
+            {!! Form::open(['method' => 'PATCH', 'route' => array('admin.categorias.update', $category->id), 'class' => 'form-horizontal']) !!}
                 <div class="form-group">
                     {!! Form::label('name', 'Nome da categoria') !!}
                     {!! Form::text('name', $category->name, ['class' => 'form-control', 'required' => 'required']) !!}
@@ -28,7 +28,7 @@
                 </div>
                 <div class="btn-group pull-right">
                     {!! Form::reset("Restaurar", ['class' => 'btn btn-warning']) !!}
-                    {!! Form::submit("Adicionar", ['class' => 'btn btn-success']) !!}
+                    {!! Form::submit("Atualizar", ['class' => 'btn btn-success']) !!}
                 </div>
             {!! Form::close() !!}
         </div>

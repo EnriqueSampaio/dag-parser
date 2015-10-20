@@ -15,4 +15,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('admin/categories', 'CategoryController');
+Route::resource('admin/categorias', 'CategoryController');
+Route::resource('admin/cidades', 'CityController');

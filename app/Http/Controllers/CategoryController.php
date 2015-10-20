@@ -52,7 +52,7 @@ class CategoryController extends Controller
         $category->description = $request->description;
         $category->save();
 
-        return Redirect::route('admin.categories.index');
+        return Redirect::route('admin.categorias.index');
     }
 
     /**
@@ -101,7 +101,7 @@ class CategoryController extends Controller
         $category->description = $request->description;
         $category->save();
 
-        return Redirect::route('admin.categories.index');
+        return Redirect::route('admin.categorias.index');
     }
 
     /**
@@ -114,6 +114,6 @@ class CategoryController extends Controller
     {
         Category::destroy($id);
 
-        return Redirect::route('admin.categories.index');
+        return Redirect::route('admin.categorias.index');
     }
 }

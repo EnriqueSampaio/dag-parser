@@ -15,7 +15,7 @@
     </div>
     <div class="row">
         <div class="col-xs-12">
-            {!! Form::open(['method' => 'POST', 'route' => 'admin.categories.store', 'class' => 'form-horizontal']) !!}
+            {!! Form::open(['method' => 'POST', 'route' => 'admin.categorias.store', 'class' => 'form-horizontal']) !!}
                 <div class="form-group">
                     {!! Form::label('name', 'Nome da categoria') !!}
                     {!! Form::text('name', null, ['class' => 'form-control', 'required' => 'required']) !!}
@@ -68,10 +68,10 @@
                                 {{$category->description}}
                             </td>
                             <td>
-                                {!! Html::decode(link_to_route('admin.categories.edit', '<i class="fa fa-pencil-square-o"></i>', $category->id, ['class' => 'btn btn-sm btn-warning'])) !!}
+                                {!! Html::decode(link_to_route('admin.categorias.edit', '<i class="fa fa-pencil-square-o"></i>', $category->id, ['class' => 'btn btn-sm btn-warning'])) !!}
                             </td>
                             <td>
-                                {!! Form::open(['method' => 'DELETE', 'route' => array('admin.categories.destroy', $category->id)]) !!}
+                                {!! Form::open(['method' => 'DELETE', 'route' => array('admin.categorias.destroy', $category->id)]) !!}
                                         {!! Form::button('<i class="fa fa-times"></i>', ['class' => 'btn btn-sm btn-danger', 'type' => 'submit']) !!}
                                 {!! Form::close() !!}
                             </td>

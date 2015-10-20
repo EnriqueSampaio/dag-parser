@@ -31,6 +31,7 @@ elixir(function(mix) {
     mix.copy('./bower_components/font-awesome/scss/_stacked.scss', './resources/assets/sass/');
     mix.copy('./bower_components/font-awesome/scss/_variables.scss', './resources/assets/sass/');
     mix.copy('./bower_components/font-awesome/scss/font-awesome.scss', './resources/assets/sass/');
+    mix.copy('./bower_components/jquery/dist/jquery.min.js', './public/js/');
 });
 
 elixir(function(mix) {

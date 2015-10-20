@@ -10,5 +10,8 @@
         <div class="container">
             @yield('content')
         </div>
+        <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/jquery.maskedinput.min.js') }}"></script>
+        @yield('custom-js')
     </body>
 </html>
