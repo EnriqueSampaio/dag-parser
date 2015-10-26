@@ -29,7 +29,7 @@ class CityController extends Controller
      */
     public function create()
     {
-        return view('admin.categories');
+        return view('admin.cities');
     }
 
     /**
@@ -44,6 +44,8 @@ class CityController extends Controller
         $request->name = ucfirst(strtolower($request->name));
         $this->validate($request, [
             'name'          => 'required||max:255',
+            'population'    => 'required|numeric',
+            'founded'       => 'required'
         ]);
 
         $year = substr($request->founded, 6);
@@ -52,6 +54,7 @@ class CityController extends Controller
 
         $city = new City;
         $city->name = $request->name;
+        $city->population = $request->population;
         $city->founded = $year."-".$month."-".$day;
         $city->added_on = date('Y-m-d');
         $city->save();
