@@ -24,9 +24,9 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-6">
-                            {!! Form::label('populations', 'População') !!}
-                            {!! Form::text('populations', null, ['class' => 'form-control', 'required' => 'required']) !!}
-                            <small class="text-danger">{{ $errors->first('populations') }}</small>
+                            {!! Form::label('population', 'População') !!}
+                            {!! Form::text('population', null, ['class' => 'form-control', 'required' => 'required']) !!}
+                            <small class="text-danger">{{ $errors->first('population') }}</small>
                         </div>
                         <div class="col-sm-6">
                             {!! Form::label('founded', 'Fundação') !!}

@@ -5,12 +5,7 @@
 @section('content')
     <div class="row">
         <div class="col-xs-12">
-            <h1>Gerenciamento de Categorias</h1>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <h2>Adicionar nova categoria</h2>
+            <h1>Atualizar Categoria</h1>
         </div>
     </div>
     <div class="row">
