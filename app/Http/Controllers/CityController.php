@@ -17,7 +17,7 @@ class CityController extends Controller
      */
     public function index()
     {
-        $cities = City::all();
+        $cities = City::orderBy('name')->get();
 
         foreach ($cities as $city) {
             $day = substr($city->founded, 8);

@@ -17,3 +17,4 @@ Route::get('/', function () {
 
 Route::resource('admin/categorias', 'CategoryController');
 Route::resource('admin/cidades', 'CityController');
+Route::resource('admin/tags', 'KeywordController');

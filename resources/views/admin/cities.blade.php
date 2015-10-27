@@ -45,7 +45,7 @@
 
     <div class="row">
         <div class="col-xs-12">
-            <h2>Editar categorias</h2>
+            <h2>Editar cidades</h2>
         </div>
     </div>
     <div class="row">

@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Keyword;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class CategoryController extends Controller
+class KeywordController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +18,14 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::orderBy('name')->get();
+        $tags = Keyword::orderBy('name')->get();
+        $categories = Category::orderBy('name')->select('name')->get();
 
-        return view('admin.categories', ['categories' => $categories]);
+        foreach ($categories as $key => $category) {
+            $categories[$key] = $category->name;
+        }
+
+        return view('admin.keywords', ['tags' => $tags, 'categories' => $categories]);
     }
 
     /**
@@ -29,7 +35,19 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.categories');
+        $request->name = ucfirst(strtolower($request->name));
+        $this->validate($request, [
+            'name'      => 'required|unique:keywords|max:255',
+            'category'  => 'required',
+        ]);
+        $category = Category::where('name', $request->category)->select('id')->first();
+
+        $tag = new Keyword;
+        $tag->name = $request->name;
+        $tag->category_id = $category->id;
+        $tag->save();
+
+        return Redirect::route('admin.tags.index');
     }
 
     /**
@@ -40,19 +58,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $request->name = ucfirst(strtolower($request->name));
-        $request->description = ucfirst(strtolower($request->description));
-        $this->validate($request, [
-            'name'          => 'required|unique:categories|max:255',
-            'description'   => 'required|max:16383',
-        ]);
-
-        $category = new Category;
-        $category->name = $request->name;
-        $category->description = $request->description;
-        $category->save();
-
-        return Redirect::route('admin.categorias.index');
+        //
     }
 
     /**
@@ -74,9 +80,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::findOrFail($id);
-
-        return view('admin.updateCategory', ['category' => $category]);
+        //
     }
 
     /**
@@ -88,20 +92,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $category = Category::findOrFail($id);
-
-        $request->name = ucfirst(strtolower($request->name));
-        $request->description = ucfirst(strtolower($request->description));
-        $this->validate($request, [
-            'name'          => 'required|max:255',
-            'description'   => 'required|max:16383',
-        ]);
-
-        $category->name = $request->name;
-        $category->description = $request->description;
-        $category->save();
-
-        return Redirect::route('admin.categorias.index');
+        //
     }
 
     /**
@@ -112,8 +103,6 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        Category::destroy($id);
-
-        return Redirect::route('admin.categorias.index');
+        //
     }
 }
