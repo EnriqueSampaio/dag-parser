@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Gerenciamento de Categorias')
+@section('title', 'Gerenciamento de Tags')
 
 @section('content')
     <div class="row">
@@ -53,13 +53,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($tags as $key => $tag)
+                    @foreach($tags as $tag)
                         <tr>
                             <td>
                                 {{$tag->name}}
                             </td>
                             <td>
-                                {{$categories[$key]->name}}
+                                {{$categories[$tag->category_id]->name}}
                             </td>
                             <td>
                                 {!! Html::decode(link_to_route('admin.tags.edit', '<i class="fa fa-pencil-square-o"></i>', $tag->id, ['class' => 'btn btn-sm btn-warning'])) !!}
