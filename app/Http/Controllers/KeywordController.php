@@ -19,13 +19,13 @@ class KeywordController extends Controller
     public function index()
     {
         $tags = Keyword::orderBy('name')->get();
-        $categories = Category::orderBy('name')->select('name')->get();
+        $categories = Category::orderBy('name')->get();
 
-        foreach ($categories as $category) {
+        foreach ($categories as $key => $category) {
             $selector[$category->id] = $category->name;
         }
 
-        return view('admin.keywords', ['tags' => $tags, 'categories' => $categories]);
+        return view('admin.keywords', ['tags' => $tags, 'categories' => $selector]);
     }
 
     /**
@@ -46,13 +46,14 @@ class KeywordController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->name = ucfirst(strtolower($request->name));
         $this->validate($request, [
             'name'      => 'required|unique:keywords|max:255',
             'category'  => 'required',
         ]);
-        $category = Category::findOrFail($request->category);
 
+        $category = Category::findOrFail($request->category);
         $tag = new Keyword;
         $tag->name = $request->name;
         $tag->category()->associate($category);
@@ -81,14 +82,13 @@ class KeywordController extends Controller
     public function edit($id)
     {
         $tag = Keyword::findOrFail($id);
-
-        $categories = Category::orderBy('name')->select('name')->get();
+        $categories = Category::orderBy('name')->get();
 
         foreach ($categories as $category) {
-            $categories[$category->id] = $category->name;
+            $selector[$category->id] = $category->name;
         }
 
-        return view('admin.updateKeyword', ['tag' => $tag, 'categories' => $categories]);
+        return view('admin.updateKeyword', ['tag' => $tag, 'categories' => $selector]);
     }
 
     /**
@@ -100,7 +100,20 @@ class KeywordController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $request->name = ucfirst(strtolower($request->name));
+        $this->validate($request, [
+            'name'      => 'required|max:255',
+            'category'  => 'required',
+        ]);
+
+        $category = Category::findOrFail($request->category);
+        $tag = Keyword::findOrFail($id);
+        $tag->name = $request->name;
+        $tag->category()->associate($category);
+        $tag->save();
+
+        return Redirect::route('admin.tags.index');
     }
 
     /**
@@ -111,6 +124,8 @@ class KeywordController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Keyword::destroy($id);
+
+        return Redirect::route('admin.tags.index');
     }
 }

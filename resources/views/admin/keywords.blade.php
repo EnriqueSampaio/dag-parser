@@ -59,7 +59,7 @@
                                 {{$tag->name}}
                             </td>
                             <td>
-                                {{$categories[$tag->category_id]->name}}
+                                {{$categories[$tag->category_id]}}
                             </td>
                             <td>
                                 {!! Html::decode(link_to_route('admin.tags.edit', '<i class="fa fa-pencil-square-o"></i>', $tag->id, ['class' => 'btn btn-sm btn-warning'])) !!}

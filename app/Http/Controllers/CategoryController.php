@@ -88,7 +88,6 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $category = Category::findOrFail($id);
 
         $request->name = ucfirst(strtolower($request->name));
         $request->description = ucfirst(strtolower($request->description));
@@ -97,6 +96,7 @@ class CategoryController extends Controller
             'description'   => 'required|max:16383',
         ]);
 
+        $category = Category::findOrFail($id);
         $category->name = $request->name;
         $category->description = $request->description;
         $category->save();

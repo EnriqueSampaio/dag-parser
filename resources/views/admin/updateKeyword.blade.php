@@ -13,12 +13,12 @@
             {!! Form::open(['method' => 'PATCH', 'route' => array('admin.tags.update', $tag->id), 'class' => 'form-horizontal']) !!}
                 <div class="form-group">
                     {!! Form::label('name', 'Tag') !!}
-                    {!! Form::text('name', null, ['class' => 'form-control', 'required' => 'required']) !!}
+                    {!! Form::text('name', $tag->name, ['class' => 'form-control', 'required' => 'required']) !!}
                     <small class="text-danger">{{ $errors->first('name') }}</small>
                 </div>
                 <div class="form-group">
                     {!! Form::label('category', 'Categoria mãe') !!}
-                    {!! Form::select('category', $categories, null, ['placeholder' => 'Selecione uma categoria', 'class' => 'form-control', 'required' => 'required']) !!}
+                    {!! Form::select('category', $categories, $tag->category_id, ['class' => 'form-control', 'required' => 'required']) !!}
                     <small class="text-danger">{{ $errors->first('category') }}</small>
                 </div>
                 <div class="btn-group pull-right">
