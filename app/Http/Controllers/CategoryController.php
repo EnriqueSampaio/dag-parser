@@ -29,7 +29,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.categories');
+        return Redirect::route('admin.categorias.index');
     }
 
     /**

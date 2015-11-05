@@ -14,7 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('admin/parser', 'ParserController@index', function() {
+    return view('admin.parser');
+});
 Route::resource('admin/categorias', 'CategoryController');
 Route::resource('admin/cidades', 'CityController');
 Route::resource('admin/tags', 'KeywordController');

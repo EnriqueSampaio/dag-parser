@@ -36,7 +36,7 @@ class CityController extends Controller
      */
     public function create()
     {
-        return view('admin.cities');
+        return Redirect::route('admin.cidades.index');
     }
 
     /**
