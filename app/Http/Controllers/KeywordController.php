@@ -20,11 +20,11 @@ class KeywordController extends Controller
     {
         $tags = Keyword::orderBy('name')->get();
         $categories = Category::orderBy('name')->get();
+        $selector = array();
 
-        foreach ($categories as $key => $category) {
+        foreach ($categories as $category) {
             $selector[$category->id] = $category->name;
         }
-
         return view('admin.keywords', ['tags' => $tags, 'categories' => $selector]);
     }
 
@@ -83,6 +83,7 @@ class KeywordController extends Controller
     {
         $tag = Keyword::findOrFail($id);
         $categories = Category::orderBy('name')->get();
+        $selector = array();
 
         foreach ($categories as $category) {
             $selector[$category->id] = $category->name;
