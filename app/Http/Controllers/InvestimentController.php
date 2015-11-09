@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class ParserController extends Controller
+class InvestimentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,18 @@ class ParserController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.investiment');
+    }
+
+    /**
+     * Extract data from spreadsheet and store it as investiments.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function parser(Request $request)
+    {
+        dd('show');
     }
 
     /**

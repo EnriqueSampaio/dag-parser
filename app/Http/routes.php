@@ -14,9 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('admin/parser', 'ParserController@index', function() {
-    return view('admin.parser');
-});
+Route::post('admin/investimentos', 'InvestimentController@parser')->name('admin.investimentos.parser');
+Route::resource('admin/investimentos', 'InvestimentController', ['except' => ['store']]);
 Route::resource('admin/categorias', 'CategoryController');
 Route::resource('admin/cidades', 'CityController');
 Route::resource('admin/tags', 'KeywordController');
