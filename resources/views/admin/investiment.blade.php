@@ -20,6 +20,11 @@
                     <small class="text-danger">{{ $errors->first('sheet') }}</small>
                 </div>
                 <div class="form-group">
+                    {!! Form::label('city', 'Cidade') !!}
+                    {!! Form::select('city', $cities, null, ['placeholder' => 'Selecione a cidade à qual pertencem os dados', 'class' => 'form-control', 'required' => 'required']) !!}
+                    <small class="text-danger">{{ $errors->first('city') }}</small>
+                </div>
+                <div class="form-group">
                     {!! Form::label('month', 'Mês') !!}
                     {!! Form::selectMonth('month', null, ['placeholder' => 'Selecione o mês ao qual pertence os dados', 'class' => 'form-control', 'required' => 'required']) !!}
                     <small class="text-danger">{{ $errors->first('month') }}</small>

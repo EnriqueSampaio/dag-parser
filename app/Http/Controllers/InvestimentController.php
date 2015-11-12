@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\City;
+use App\Investiment;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -15,7 +17,14 @@ class InvestimentController extends Controller
      */
     public function index()
     {
-        return view('admin.investiment');
+        $cities = City::orderBy('name')->get();
+        $selector = array();
+
+        foreach ($cities as $city) {
+            $selector[$city->id] = $city->name;
+        }
+
+        return view('admin.investiment', ['cities' => $selector]);
     }
 
     /**
