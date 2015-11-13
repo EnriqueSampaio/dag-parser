@@ -35,7 +35,11 @@ class InvestimentController extends Controller
      */
     public function parser(Request $request)
     {
-        dd('show');
+        $this->validate($request, [
+            'file' => 'required',
+            'city'  => 'required',
+            'month' => 'required',
+        ]);
     }
 
     /**

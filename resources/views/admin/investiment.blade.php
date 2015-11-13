@@ -12,10 +12,10 @@
     </div>
     <div class="row">
         <div class="col-xs-12">
-            {!! Form::open(['method' => 'POST', 'route' => 'admin.investimentos.parser', 'class' => 'form-horizontal']) !!}
+            {!! Form::open(['method' => 'POST', 'route' => 'admin.investimentos.parser', 'class' => 'form-horizontal', 'files' => 'true']) !!}
                 <div class="form-group">
-                    {!! Form::label('sheet', 'Enviar Planilha') !!}
-                    {!! Form::file('sheet', ['class' => 'required']) !!}
+                    {!! Form::label('file', 'Enviar Planilha') !!}
+                    {!! Form::file('file', ['class' => 'required']) !!}
                     <p class="help-block">Envie a planilha da qual os dados devem ser extraídos</p>
                     <small class="text-danger">{{ $errors->first('sheet') }}</small>
                 </div>
