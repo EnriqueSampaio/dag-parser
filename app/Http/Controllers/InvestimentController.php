@@ -38,8 +38,10 @@ class InvestimentController extends Controller
         $this->validate($request, [
             'file' => 'required',
             'city'  => 'required',
-            'month' => 'required',
+            'year' => 'required',
         ]);
+
+        
     }
 
     /**

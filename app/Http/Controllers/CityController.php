@@ -47,7 +47,6 @@ class CityController extends Controller
      */
     public function store(Request $request)
     {
-        date_default_timezone_get('America/Sao_Paulo');
         $request->name = ucfirst(strtolower($request->name));
         $this->validate($request, [
             'name'          => 'required||max:255',
