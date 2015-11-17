@@ -24,7 +24,7 @@
                 </div>
                 <div class="form-group">
                     {!! Form::label('month', 'Mês') !!}
-                    {!! Form::selectMonth('month', null, ['placeholder' => 'Selecione o mês ao qual pertence os dados', 'class' => 'form-control', 'required' => 'required']) !!}
+                    {!! Form::selectMonth('month', null, ['placeholder' => 'Selecione o mês ao qual pertence os dados', 'class' => 'form-control']) !!}
                     <small class="help-block">Caso os dados sejam do ano inteiro, não selecione nenum mês</small>
                     <small class="text-danger">{{ $errors->first('month') }}</small>
                 </div>

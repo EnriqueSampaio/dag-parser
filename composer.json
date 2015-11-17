@@ -9,7 +9,7 @@
         "laravel/framework": "5.1.*",
         "laravelcollective/html": "5.1.*",
         "doctrine/dbal": "2.5.1",
-        "phpoffice/phpexcel": "^1.8"
+        "maatwebsite/excel": "~2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\City;
 use App\Investiment;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -41,18 +42,20 @@ class InvestimentController extends Controller
             'year' => 'required',
         ]);
 
-        $parser = PHPExcel_IOFactory::createReaderForFile($request->file);
-        $parser->setReadDataOnly(true);
-        $objSheet = $parser->load($request->file);
-
-        foreach ($objSheet->getRowIterator() as $rowKey => $row) {
-            $cellIterator = $row->getCellIterator();
-            foreach ($cellIterator as $cellKey => $cell) {
-                if (1) {
-                    # code...
-                }
+        Excel::selectSheetsByIndex(0)->load($request->file, function($reader) {
+            // echo '<table>';
+            // $reader->each(function($row) {
+                // echo '<tr>';
+                // $row->each(function($column) {
+                    // echo '<td>' . $column . '</td>';
+                // });
+                // echo '</tr>';
+            // });
+            // echo '</table>';
+            foreach ($reader->toArray() as $row) {
+                dump($row);
             }
-        }
+        });
     }
 
     /**
