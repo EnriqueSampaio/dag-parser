@@ -41,7 +41,18 @@ class InvestimentController extends Controller
             'year' => 'required',
         ]);
 
-        
+        $parser = PHPExcel_IOFactory::createReaderForFile($request->file);
+        $parser->setReadDataOnly(true);
+        $objSheet = $parser->load($request->file);
+
+        foreach ($objSheet->getRowIterator() as $rowKey => $row) {
+            $cellIterator = $row->getCellIterator();
+            foreach ($cellIterator as $cellKey => $cell) {
+                if (1) {
+                    # code...
+                }
+            }
+        }
     }
 
     /**

@@ -43,6 +43,18 @@ $app->singleton(
 
 /*
 |--------------------------------------------------------------------------
+| Set Right Locale
+|--------------------------------------------------------------------------
+|
+| Here we set the locale of the system, so this will be used by the PHP
+| functions like strftime to pick date and time with the locale format.
+|
+*/
+
+setlocale(LC_ALL, 'pt_BR.UTF-8');
+
+/*
+|--------------------------------------------------------------------------
 | Return The Application
 |--------------------------------------------------------------------------
 |

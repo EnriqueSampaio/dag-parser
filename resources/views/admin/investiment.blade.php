@@ -3,8 +3,6 @@
 @section('title', 'Parser')
 
 @section('content')
-<?php //setlocale(LC_ALL, "pt_BR.UTF-8"); ?>
-
     <div class="row">
         <div class="col-xs-12">
             <h1>Parser</h1>
