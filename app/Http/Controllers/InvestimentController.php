@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use PHPExcel_IOFactory;
+use PHPExcel_Cell;
 use App\City;
 use App\Investiment;
-use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -42,20 +43,25 @@ class InvestimentController extends Controller
             'year' => 'required',
         ]);
 
-        Excel::selectSheetsByIndex(0)->load($request->file, function($reader) {
-            // echo '<table>';
-            // $reader->each(function($row) {
-                // echo '<tr>';
-                // $row->each(function($column) {
-                    // echo '<td>' . $column . '</td>';
-                // });
-                // echo '</tr>';
-            // });
-            // echo '</table>';
-            foreach ($reader->toArray() as $row) {
-                dump($row);
+        echo $request->month;
+
+        $parser = PHPExcel_IOFactory::load($request->file);
+        $columns = array_fill(1, PHPExcel_Cell::columnIndexFromString($parser->getActiveSheet()->getHighestColumn()), 0);
+
+        foreach ($parser->getActiveSheet()->getRowIterator() as $row) {
+            foreach ($row->getCellIterator() as $cell) {
+                if (preg_match("/[a-z]/i", $cell->getValue())) {
+                    $columns[PHPExcel_Cell::columnIndexFromString($cell->getColumn())]++;
+                }
             }
-        });
+        }
+
+        if (empty($request->month)) {
+            # code...
+        } else {
+            # code...
+        }
+
     }
 
     /**
