@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 16, 2015 at 02:01 PM
+-- Generation Time: Nov 19, 2015 at 11:30 AM
 -- Server version: 5.6.27-2
 -- PHP Version: 5.6.14-1ubuntu1
 
@@ -32,6 +32,15 @@ CREATE TABLE `categories` (
   `description` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`id`, `name`, `description`) VALUES
+(1, 'Educação', 'Essa categoria envolve gastos com escolas, universidades, pesquisas e outras fundações e eventos de cunho educacional.'),
+(2, 'Política social', 'Essa categoria envolve gastos com instituições beficentes, intituições de cuidados na área da saúde, orfanatos etc.'),
+(3, 'Saúde', 'Essa categoria envolve gastos com hospitais, postos de saúde, campanhas de vacinação etc.');
+
 -- --------------------------------------------------------
 
 --
@@ -51,7 +60,7 @@ CREATE TABLE `cities` (
 --
 
 INSERT INTO `cities` (`id`, `name`, `population`, `founded`, `added_on`) VALUES
-(1, 'Salto de pirapora', 16545465, '1995-10-01', '2015-11-13');
+(2, 'Ribeirão preto', 666323, '1856-06-19', '2015-11-19');
 
 -- --------------------------------------------------------
 
@@ -78,6 +87,20 @@ CREATE TABLE `keywords` (
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `category_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `keywords`
+--
+
+INSERT INTO `keywords` (`id`, `name`, `category_id`) VALUES
+(5, 'apm', 1),
+(6, 'escola', 1),
+(7, 'hospital', 3),
+(8, 'orfanato', 2),
+(9, 'social', 2),
+(10, 'beneficente', 2),
+(11, 'grupo de apoio', 2),
+(12, 'creche', 1);
 
 -- --------------------------------------------------------
 
@@ -194,12 +217,12 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `cities`
 --
 ALTER TABLE `cities`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `investiments`
 --
@@ -209,7 +232,7 @@ ALTER TABLE `investiments`
 -- AUTO_INCREMENT for table `keywords`
 --
 ALTER TABLE `keywords`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `users`
 --

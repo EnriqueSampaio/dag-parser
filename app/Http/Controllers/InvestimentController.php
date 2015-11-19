@@ -57,11 +57,16 @@ class InvestimentController extends Controller
         }
 
         if (empty($request->month)) {
-            # code...
+            foreach ($parser->getActiveSheet()->getRowIterator() as $row) {
+                foreach ($row->getCellIterator() as $cell) {
+                    if (PHPExcel_Cell::columnIndexFromString($cell->getColumn()) == array_keys($columns, max($columns))[0]) {
+                        echo $cell->getValue() . '<br>';
+                    }
+                }
+            }
         } else {
             # code...
         }
-
     }
 
     /**
