@@ -50,6 +50,12 @@
                         <th>
                             Categoria mãe
                         </th>
+                        <th>
+                            Alterar
+                        </th>
+                        <th>
+                            Remover
+                        </th>
                     </tr>
                 </thead>
                 <tbody>

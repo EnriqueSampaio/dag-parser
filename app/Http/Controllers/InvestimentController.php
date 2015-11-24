@@ -43,8 +43,7 @@ class InvestimentController extends Controller
             'year' => 'required',
         ]);
 
-        echo $request->month;
-
+        $tags = Keyword::get();
         $parser = PHPExcel_IOFactory::load($request->file);
         $columns = array_fill(1, PHPExcel_Cell::columnIndexFromString($parser->getActiveSheet()->getHighestColumn()), 0);
 
@@ -59,8 +58,13 @@ class InvestimentController extends Controller
         if (empty($request->month)) {
             foreach ($parser->getActiveSheet()->getRowIterator() as $row) {
                 foreach ($row->getCellIterator() as $cell) {
-                    if (PHPExcel_Cell::columnIndexFromString($cell->getColumn()) == array_keys($columns, max($columns))[0]) {
-                        echo $cell->getValue() . '<br>';
+                    $value = PHPExcel_Cell::columnIndexFromString($cell->getColumn());
+                    if ($value == array_keys($columns, max($columns))[0]) {
+                        foreach ($tags as $tag) {
+                            if (strpos($value, $tag->name) !== FALSE) {
+
+                            }
+                        }
                     }
                 }
             }
