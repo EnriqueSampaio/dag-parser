@@ -63,8 +63,8 @@ class InvestimentController extends Controller
                     $value = PHPExcel_Cell::columnIndexFromString($cell->getColumn());
                     if ($value == array_keys($columns, max($columns))[0]) {
                         foreach ($tags as $tag) {
-                            if (strpos($value, $tag->name) !== FALSE) {
-                                echo 'show!<br>';
+                            if (strpos(strtolower($cell->getValue()), $tag->name) !== FALSE) {
+                                //match match pow pow
                             }
                         }
                     }
