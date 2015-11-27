@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use PHPExcel_IOFactory;
 use PHPExcel_Cell;
+use App\Category;
 use App\City;
 use App\Investiment;
+use App\Keyword;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -62,7 +64,7 @@ class InvestimentController extends Controller
                     if ($value == array_keys($columns, max($columns))[0]) {
                         foreach ($tags as $tag) {
                             if (strpos($value, $tag->name) !== FALSE) {
-
+                                echo 'show!<br>';
                             }
                         }
                     }
