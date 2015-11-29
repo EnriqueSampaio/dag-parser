@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1deb3
+-- version 4.5.2deb1
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 19, 2015 at 11:30 AM
+-- Generation Time: Nov 29, 2015 at 01:10 AM
 -- Server version: 5.6.27-2
 -- PHP Version: 5.6.14-1ubuntu1
 
@@ -37,9 +37,12 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`, `description`) VALUES
-(1, 'Educação', 'Essa categoria envolve gastos com escolas, universidades, pesquisas e outras fundações e eventos de cunho educacional.'),
-(2, 'Política social', 'Essa categoria envolve gastos com instituições beficentes, intituições de cuidados na área da saúde, orfanatos etc.'),
-(3, 'Saúde', 'Essa categoria envolve gastos com hospitais, postos de saúde, campanhas de vacinação etc.');
+(1, 'Educação', 'Gastos com escolas, universidades, pesquisas e outras fundações e eventos de cunho educacional.'),
+(2, 'Política social', 'Gastos com instituições beficentes, intituições de cuidados na área da saúde, orfanatos etc.'),
+(3, 'Saúde', 'Gastos com hospitais, postos de saúde, campanhas de vacinação etc.'),
+(4, 'Outros', 'Gastos diversos que não se encaixam em nenhuma outra categoria.'),
+(5, 'Entidades de classe', 'Gastos com associações comerciais, industriais e de outras classes trabalhistas.'),
+(6, 'Cultura', 'Gastos com museus, teatros, esportes, música etc.');
 
 -- --------------------------------------------------------
 
@@ -73,7 +76,8 @@ CREATE TABLE `investiments` (
   `city_id` int(10) UNSIGNED NOT NULL,
   `domain` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `value` decimal(65,2) NOT NULL,
-  `category_id` int(10) UNSIGNED NOT NULL
+  `category_id` int(10) UNSIGNED NOT NULL,
+  `made_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -100,7 +104,33 @@ INSERT INTO `keywords` (`id`, `name`, `category_id`) VALUES
 (9, 'social', 2),
 (10, 'beneficente', 2),
 (11, 'grupo de apoio', 2),
-(12, 'creche', 1);
+(12, 'creche', 1),
+(13, 'adocao', 2),
+(14, 'apae', 2),
+(15, 'aci', 5),
+(16, 'abracc', 2),
+(17, 'ass. de car.', 2),
+(18, 'museu', 6),
+(19, 'arq. publico', 6),
+(20, 'lar vicentino', 2),
+(21, 'associacao sao francisco de assis', 2),
+(22, 'assoc. sao francisco de assis', 2),
+(23, 'adevirp', 2),
+(24, 'cultura e arte', 6),
+(25, 'associacao assistencial', 2),
+(26, 'cultural', 6),
+(27, 'musical', 6),
+(28, 'e.e.i.', 1),
+(29, 'educacao', 1),
+(30, 'feira do livro', 6),
+(31, 'gacc', 2),
+(32, 'isegun', 6),
+(33, 'sanatorio', 3),
+(34, 'sociedade espirita', 2),
+(35, 'sociedade esp.', 2),
+(36, 'film comission', 6),
+(37, 'benef.', 2),
+(38, 'soberp', 2);
 
 -- --------------------------------------------------------
 
@@ -132,7 +162,8 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 ('2015_10_16_200002_alter_cities_table', 5),
 ('2015_10_16_200032_alter_investiments_table', 5),
 ('2015_10_16_200218_alter_investiments_table', 6),
-('2015_11_16_143611_change_value_from_double_to_decimal', 7);
+('2015_11_16_143611_change_value_from_double_to_decimal', 7),
+('2015_11_29_000308_add_date_to_investiments_table', 8);
 
 -- --------------------------------------------------------
 
@@ -217,7 +248,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `cities`
 --
@@ -232,7 +263,7 @@ ALTER TABLE `investiments`
 -- AUTO_INCREMENT for table `keywords`
 --
 ALTER TABLE `keywords`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 --
 -- AUTO_INCREMENT for table `users`
 --
