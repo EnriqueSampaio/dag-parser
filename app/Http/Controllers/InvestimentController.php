@@ -45,6 +45,7 @@ class InvestimentController extends Controller
             'city'  => 'required',
             'year' => 'required',
         ]);
+        
 
         $city = City::findOrFail($request->city);
         $investiments = array();
