@@ -31,16 +31,26 @@ class InvestimentController extends Controller
             $selector[$city->id] = $city->name;
         }
 
-        return view('admin.investiment', ['cities' => $selector]);
+        return view('admin.investiments', ['cities' => $selector]);
     }
 
     /**
-     * Extract data from spreadsheet and store it as investiments.
+     * Show the form for creating a new resource.
      *
-     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function parser(Request $request)
+    public function create()
+    {
+        return Redirect::route('admin.investiments.index');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
     {
         $this->validate($request, [
             'file' => 'required',
@@ -54,57 +64,34 @@ class InvestimentController extends Controller
 
         if (empty($request->month)) {
             $investiments = $parser->extractInvestimentsEachonth();
-            foreach ($investiments as $investiment) {
+            foreach ($investiments as $investimentIdx =>$investiment) {
                 foreach ($investiment as $month => $singleMonth) {
-                    $flag = 1;
-                    $singleMonth->city()->associate($city);
-                    $singleMonth->made_at = $request->year . '-' . sprintf("%02s", $month);
-                    foreach ($tags as $tag) {
-                        if (strpos(mb_strtolower($singleMonth, 'UTF-8'), $tag) !== FALSE) {
-                            $flag = 0;
-                            $singleMonth->category()->associate(Category::findOrFail($tag->category_id));
+                    if (!empty($singleMonth->name)) {
+                        $flag = 1;
+                        $singleMonth->city()->associate($city);
+                        $singleMonth->made_at = $request->year . '-' . sprintf("%02s", $month);
+                        foreach ($tags as $tag) {
+                            if (strpos(mb_strtolower($singleMonth, 'UTF-8'), $tag->name) !== FALSE) {
+                                $flag = 0;
+                                $singleMonth->category()->associate(Category::findOrFail($tag->category_id));
+                                break;
+                            }
                         }
-                    }
-                    if ($flag) {
-                        $singleMonth->category->associate(Category::where('name', 'Outros')->firstOrFail());
+                        if ($flag) {
+                            $singleMonth->category()->associate(Category::where('name', 'Outros')->firstOrFail());
+                        }
+                    } else {
+                        unset($investiments[$investimentIdx]);
                     }
                 }
             }
         }
 
-        // return Redirect::route('admin.investimentos.index');
-    }
+        foreach ($investiments as $investiment) {
+            
+        }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        return Redirect::route('admin.investiments.index');
     }
 
     /**

@@ -90,6 +90,11 @@ class SheetHandler
         }
     }
 
+    /**
+     * Extract investiments from the sheet.
+     *
+     * @return Bi-Dimensional array (months x investiments) with Investiment objects
+     */
     public function extractInvestimentsEachonth()
     {
         $this->monthsIdx();

@@ -10,7 +10,7 @@
     </div>
     <div class="row">
         <div class="col-xs-12">
-            {!! Form::open(['method' => 'POST', 'route' => 'admin.investimentos.parser', 'class' => 'form-horizontal', 'files' => 'true']) !!}
+            {!! Form::open(['method' => 'POST', 'route' => 'admin.investimentos.store', 'class' => 'form-horizontal', 'files' => 'true']) !!}
                 <div class="form-group">
                     {!! Form::label('file', 'Enviar Planilha') !!}
                     {!! Form::file('file', ['class' => 'required']) !!}

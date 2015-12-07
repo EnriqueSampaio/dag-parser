@@ -46,7 +46,6 @@ class KeywordController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->name = strtolower($request->name);
         $this->validate($request, [
             'name'      => 'required|unique:keywords|max:255',
