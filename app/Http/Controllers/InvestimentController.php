@@ -63,13 +63,13 @@ class InvestimentController extends Controller
         $parser = new SheetHandler($request->file);
 
         if (empty($request->month)) {
-            $investiments = $parser->extractInvestimentsEachonth();
-            foreach ($investiments as $investimentIdx =>$investiment) {
+            $investiments = $parser->extractInvestimentsEachMonth();
+            foreach ($investiments as $investimentIdx => $investiment) {
                 foreach ($investiment as $month => $singleMonth) {
-                    if (!empty($singleMonth->name)) {
+                    if (!empty($singleMonth->domain)) {
                         $flag = 1;
                         $singleMonth->city()->associate($city);
-                        $singleMonth->made_at = $request->year . '-' . sprintf("%02s", $month);
+                        $singleMonth->made_at = $request->year . '-' . sprintf("%02s", $month) . '-' . 1;
                         foreach ($tags as $tag) {
                             if (strpos(mb_strtolower($singleMonth, 'UTF-8'), $tag->name) !== FALSE) {
                                 $flag = 0;
@@ -85,13 +85,24 @@ class InvestimentController extends Controller
                     }
                 }
             }
+
+            foreach ($investiments as $investiment) {
+                foreach ($investiment as $singleMonth) {
+                    $singleMonth->save();
+                }
+            }
+        } else {
+            $investiments = $parser->extractInvestiments();
+            foreach ($investiments as $investimentIdx => $investiment) {
+                if (!empty($investiment->domain)) {
+                    # code...
+                } else {
+                    unset($investiments[$investimentIdx]);
+                }
+            }
         }
 
-        foreach ($investiments as $investiment) {
-            
-        }
-
-        return Redirect::route('admin.investiments.index');
+        return Redirect::route('admin.investimentos.index');
     }
 
     /**
