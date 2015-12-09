@@ -105,11 +105,16 @@ class SheetHandler
             foreach ($row->getCellIterator() as $cell) {
                 if (PHPExcel_Cell::columnIndexFromString($cell->getColumn()) == $this->dataColumn[0]) {
                     for ($i = 1; $i <= 12; $i++) {
-                        $investiments[$rowIdx][$i] = new Investiment;
+                        if (!isset($investiments[$rowIdx][$i])) {
+                            $investiments[$rowIdx][$i] = new Investiment;
+                        }
                         $investiments[$rowIdx][$i]->domain = $cell->getValue();
                     }
                 } else {
                     for ($i = 1; $i <= 12; $i++) {
+                        if (!isset($investiments[$rowIdx][$i])) {
+                            $investiments[$rowIdx][$i] = new Investiment;
+                        }
                         if (PHPExcel_Cell::columnIndexFromString($cell->getColumn()) == $this->dataColumn[$i]) {
                             $investiments[$rowIdx][$i]->value = $cell->getValue();
                             break;
@@ -131,12 +136,30 @@ class SheetHandler
     {
         foreach ($this->sheet->getActiveSheet()->getRowIterator() as $row) {
             foreach ($row->getCellIterator() as $cell) {
-                if (strcasecmp($cell->getValue(), 'pagamento') === 0 || strcasecmp($cell->getValue(), 'pago') === 0) {
+                if (strcasecmp($cell->getValue(), 'pagamento') === 0 || strcasecmp($cell->getValue(), 'pago') === 0 || strcasecmp($cell->getValue(), 'valor') === 0) {
                     $this->paymentColumn = PHPExcel_Cell::columnIndexFromString($cell->getColumn());
+                    $this->firstRow = $cell->getRow() + 1;
                     return;
                 }
             }
         }
+
+        $columns = array_fill(1, PHPExcel_Cell::columnIndexFromString($this->sheet->getActiveSheet()->getHighestColumn()), 0);
+
+        foreach ($this->sheet->getActiveSheet()->getRowIterator() as $row) {
+            foreach ($row->getCellIterator() as $cell) {
+                if (preg_match("/[0-9]/", $cell->getValue())) {
+                    $string = Helper::mb_str_split($cell->getValue());
+                    foreach ($string as $char) {
+                        if(ctype_digit($char)) {
+                            $columns[PHPExcel_Cell::columnIndexFromString($cell->getColumn())]++;
+                        }
+                    }
+                }
+            }
+        }
+
+        $this->paymentColumn = array_keys($columns, max($columns))[0];
     }
 
     /**
@@ -146,20 +169,24 @@ class SheetHandler
      */
     public function extractInvestiments()
     {
-        $this->paymentColumn();
-
+        $this->detectPayments();
         $investiments = array();
-        foreach ($this->sheet->getActiveSheet()->getRowIterator() as $row) {
+        foreach ($this->sheet->getActiveSheet()->getRowIterator($this->firstRow) as $rowIdx => $row) {
             foreach ($row->getCellIterator() as $cell) {
                 if (PHPExcel_Cell::columnIndexFromString($cell->getColumn()) == $this->dataColumn[0]) {
-                    $investiments[$rowIdx] = new Investiment;
+                    if (!isset($investiments[$rowIdx])) {
+                        $investiments[$rowIdx] = new Investiment;
+                    }
                     $investiments[$rowIdx]->domain = $cell->getValue();
                 } else if (PHPExcel_Cell::columnIndexFromString($cell->getColumn()) == $this->paymentColumn) {
-                    $investiments[$rowIdx] = $cell->getValue();
+                    if (!isset($investiments[$rowIdx])) {
+                        $investiments[$rowIdx] = new Investiment;
+                    }
+                    $investiments[$rowIdx]->value = $cell->getValue();
                 }
             }
         }
 
-        return $investiemnts;
+        return $investiments;
     }
 }

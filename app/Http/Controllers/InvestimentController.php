@@ -95,10 +95,26 @@ class InvestimentController extends Controller
             $investiments = $parser->extractInvestiments();
             foreach ($investiments as $investimentIdx => $investiment) {
                 if (!empty($investiment->domain)) {
-                    # code...
+                    $flag = 1;
+                    $investiment->city()->associate($city);
+                    $investiment->made_at = $request->year . '-' . sprintf("%02s", $request->month) . '-' . 1;
+                    foreach ($tags as $tag) {
+                        if (strpos(mb_strtolower($investiment, 'UTF-8'), $tag->name) !== FALSE) {
+                            $flag = 0;
+                            $investiment->category()->associate(Category::findOrFail($tag->category_id));
+                            break;
+                        }
+                    }
+                    if ($flag) {
+                        $investiment->category()->associate(Category::where('name', 'Outros')->firstOrFail());
+                    }
                 } else {
                     unset($investiments[$investimentIdx]);
                 }
+            }
+
+            foreach ($investiments as $invesitment) {
+                $investiment->save();
             }
         }
 
